@@ -26,6 +26,7 @@ const sendOtpEmail = (email, otp) => {
   return transporter.sendMail(mailOptions);
 };
 
+// Exporting all the controllers
 module.exports = {
   generateOtp,
   sendOtpEmail,
