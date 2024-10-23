@@ -80,6 +80,7 @@ const updatePassword = async (uid, newPassword) => {
   }
 };
 
+// Exporting all the functions 
 module.exports = {
   createUser,
   getUserByEmail,
