@@ -3,6 +3,7 @@ const db = admin.firestore(); // Firestore instance
 
 // Create user function
 
+// Exporting all the functions 
 module.exports = {
    createUser : async (uid, email, name, password, phone, country) => {
     try {
