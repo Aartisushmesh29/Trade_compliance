@@ -14,7 +14,7 @@ pids
 *.pid.lock
 
 # Firebase admin private key
-serviceAccount.json
+
 
 # Environment variable files
 .env

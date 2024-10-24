@@ -4,7 +4,6 @@ const authRoutes = require('./routes/authRoutes');
 const dotenv = require('dotenv');
 const cors = require("cors");
 
-
 dotenv.config();
 
 const app = express();
@@ -28,8 +27,4 @@ app.get('/', (req, res) => {
   res.send('API is working!');
 });
 
-// Start server
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+module.exports = app;  // Export app for Vercel serverless
