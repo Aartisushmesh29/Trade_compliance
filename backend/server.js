@@ -8,7 +8,16 @@ const cors = require("cors");
 dotenv.config();
 
 const app = express();
-app.use(cors())
+
+const corsOptions = {
+  origin: '*', // Allow all domains
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
+  credentials: true, // If you're using cookies or authentication tokens
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'] // Specify custom headers that you expect from the frontend
+};
+
+app.use(cors(corsOptions));
+
 app.use(bodyParser.json()); 
 
 // Routes
