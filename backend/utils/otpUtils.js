@@ -7,6 +7,7 @@ const generateOtp = () => {
 };
 
 // Send OTP via email
+
 const sendOtpEmail = (email, otp) => {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -15,7 +16,7 @@ const sendOtpEmail = (email, otp) => {
       pass: process.env.EMAIL_PASSWORD,
     },
   });
-
+// options for mail
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
