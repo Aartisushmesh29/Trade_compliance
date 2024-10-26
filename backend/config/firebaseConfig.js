@@ -4,7 +4,7 @@ dotenv.config();
 
 // Initialize Firebase Admin with service account
 admin.initializeApp({
-  credential: admin.credential.cert(require('./serviceAccount.json')),
+  credential: admin.credential.cert(require('./serviceAccount')),
 });
 
 module.exports = admin;
