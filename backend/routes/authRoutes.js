@@ -1,6 +1,7 @@
 const express = require('express');
 const { OAuth2Client } = require('google-auth-library'); // For Google Sign-in
 const authApi = require('../controllers/authController')
+const customApi = require('../controllers/customDuty.js')
 const router = express.Router();
 // Initialize Google OAuth2 Client with your client ID
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -18,4 +19,7 @@ router.post('/forgot-password/send-otp', authApi.sentOtp);
 router.post('/forgot-password/verify-otp' , authApi.verifyingOTP);
 // Reset Password route
 router.post('/forgot-password/reset-password', authApi.PasswordReset);
+// ROUTE TO CUSTOM DUTY 
+router.get('/calculating-custom-duty', customApi.calculateCustomDuty);
+
 module.exports = router;

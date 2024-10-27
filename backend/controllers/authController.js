@@ -30,24 +30,19 @@ module.exports = {
  // Google signup page API  
   GoogleSignInSinghUp : async(req, res) => {
     const { token } = req.body;
-
     try {
       // Verify Google token
       const ticket = await client.verifyIdToken({
         idToken: token,
         audience: process.env.GOOGLE_CLIENT_ID,
       });
-  
       const payload = ticket.getPayload();
       const { email, name, sub: googleUid } = payload;
-  
       // Check if user already exists in Firestore
       const user = await UserAPI.getUserByEmail(email);
-  
       if (!user) {
         // If user doesn't exist, create a new user in Firestore
         await UserAPI.createUser(googleUid, email, name, null, null, null);
-  
         res.status(201).json({ message: 'Google user registered successfully', googleUid });
       } else {
         // If user exists, just log them in
@@ -57,8 +52,6 @@ module.exports = {
       console.error('Error during Google Sign-In:', error);
       res.status(400).json({ error: error.message });
     }
-  
-
   },
 // After google signup page API  --> storing user's phone, country .
   AfterGoogleSignUp : async(req,res) =>{
