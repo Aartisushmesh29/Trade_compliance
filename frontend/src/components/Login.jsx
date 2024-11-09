@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 //assests
 import GoogleLogo from "../assets/Google__G__logo.svg.png";
+import { login } from "../api/api";
 
 const Login = ({ theme, toggleTheme }) => {
   const [email, setEmail] = useState("");
@@ -18,11 +19,22 @@ const Login = ({ theme, toggleTheme }) => {
     }
   }, [showPassword]);
 
-  //   write the required functions here of login page
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (email === "" || password === "") {
       alert("Please fill all the fields");
+      return;
     }
+
+    try {
+      const response = await login();
+      console.log(response);
+      
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+
+    //!   write the required functions here of login page
   };
 
   return (

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+
+
 //api
 import { googleSignIn, signUp } from "../api/api";
 
@@ -8,6 +10,8 @@ import { googleSignIn, signUp } from "../api/api";
 import GoogleLogo from "../assets/Google__G__logo.svg.png";
 
 const SignUp = ({ theme, toggleTheme }) => {
+  // const provider = new firebase.auth.GoogleAuthProvider();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -79,15 +83,37 @@ const SignUp = ({ theme, toggleTheme }) => {
   //here is the google sign in function
   const handleGoogleSignin = async () => {
     if (isTermsAndConditionsChecked) {
-      // try {
-      //   const result = await googleSignIn(); //TODO: add token here
+      
+      // firebase
+      //   .auth()
+      //   .signInWithPopup(provider)
+      //   .then((result) => {
+      //     const token = result.credential.accessToken;
+          // const user = result.user;
 
-      //   console.log(result);
-      //   alert("Signed up successfully", result);
-      //   console.log("Signed up successfully", result);
-      // } catch (err) {
-      //   console.log("error in signing up", err);
-      // }
+          // try {
+          //   const result = await googleSignIn(token); //TODO: add token here
+
+          //   console.log(result);
+          //   alert("Signed up successfully", result);
+          //   console.log("Signed up successfully", result);
+          // } catch (err) {
+          //   console.log("error in signing up", err);
+          // }
+          // googleSignIn(token)
+          //   .then((result) => {
+          //     console.log(result);
+          //     alert("Signed up successfully", result);
+          //   })
+          //   .catch((err) => {
+          //     console.error(err);
+          //     alert("Error in signing up", err);
+          //   });
+          // })
+          // .catch((error) => {
+          //   console.error(error);
+          // });
+          
 
       //!write the required functions here of google signin
     } else {
