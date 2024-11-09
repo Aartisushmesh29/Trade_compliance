@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+
+
+//api
+import { googleSignIn, signUp } from "../api/api";
+
 //assests
 import GoogleLogo from "../assets/Google__G__logo.svg.png";
 
 const SignUp = ({ theme, toggleTheme }) => {
+  // const provider = new firebase.auth.GoogleAuthProvider();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [fullname, setFullname] = useState("");
+  const [name, setName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [country, setCountry] = useState("");
 
@@ -31,12 +38,13 @@ const SignUp = ({ theme, toggleTheme }) => {
     }
   }, [showPassword]);
 
-  const handleLogin = () => {
+  //here is the sign up function
+  const handleSignUp = async () => {
     if (isTermsAndConditionsChecked) {
       if (
         email === "" ||
         password === "" ||
-        fullname === "" ||
+        name === "" ||
         phoneNo === "" ||
         country === ""
       ) {
@@ -48,8 +56,66 @@ const SignUp = ({ theme, toggleTheme }) => {
         }
         console.log("signed up successfully");
 
+        const formData = {
+          email: email,
+          password: password,
+          name: name,
+          // phoneNo: phoneNo,
+          // country: country,
+        };
+        try {
+          const result = await signUp(formData);
+          console.log(result);
+          // alert("Signed up successfully", result);
+          console.log("Signed up successfully", result);
+        } catch (err) {
+          // console.log(err);
+          console.log("error in signing up", err);
+        }
+
         //!write the required functions here of signup page
       }
+    } else {
+      alert("Please accept the terms and conditions");
+    }
+  };
+
+  //here is the google sign in function
+  const handleGoogleSignin = async () => {
+    if (isTermsAndConditionsChecked) {
+      
+      // firebase
+      //   .auth()
+      //   .signInWithPopup(provider)
+      //   .then((result) => {
+      //     const token = result.credential.accessToken;
+          // const user = result.user;
+
+          // try {
+          //   const result = await googleSignIn(token); //TODO: add token here
+
+          //   console.log(result);
+          //   alert("Signed up successfully", result);
+          //   console.log("Signed up successfully", result);
+          // } catch (err) {
+          //   console.log("error in signing up", err);
+          // }
+          // googleSignIn(token)
+          //   .then((result) => {
+          //     console.log(result);
+          //     alert("Signed up successfully", result);
+          //   })
+          //   .catch((err) => {
+          //     console.error(err);
+          //     alert("Error in signing up", err);
+          //   });
+          // })
+          // .catch((error) => {
+          //   console.error(error);
+          // });
+          
+
+      //!write the required functions here of google signin
     } else {
       alert("Please accept the terms and conditions");
     }
@@ -70,9 +136,8 @@ const SignUp = ({ theme, toggleTheme }) => {
               className={` border-[2px] dark:border-gray-700 rounded-md p-2 w-full ${
                 theme === "light" ? "bg-white" : "bg-gray-800"
               }`}
-              // {`outline-none w-[88%] px-2 ${theme === "light" ? "bg-white" : "bg-gray-800"}`}
-              value={fullname}
-              onChange={(e) => setFullname(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="w-full flex flex-col gap-2">
@@ -166,7 +231,7 @@ const SignUp = ({ theme, toggleTheme }) => {
               onChange={(e) => setIsTermsAndConditionsChecked(e.target.checked)}
             />
             <span>I accept the </span>
-            <Link to={"/termsAndConditions"}>
+            <Link to={"/termsAndConditions"} target="_blank">
               <span className="cursor-pointer hover:underline text-[#407BFF]">
                 Terms and Conditions
               </span>
@@ -178,9 +243,9 @@ const SignUp = ({ theme, toggleTheme }) => {
                 ? "bg-[#407BFF] hover:bg-blue-400 cursor-pointer"
                 : "bg-blue-200 cursor-not-allowed dark:bg-gray-700 dark:text-gray-500"
             }   text-sm transition-all text-white rounded-md w-full duration-300`}
-            onClick={handleLogin} //! for adding functionality to the login button, use previously defined handleLogin function
+            onClick={handleSignUp} //! for adding functionality to the login button, use previously defined handleLogin function
           >
-            Log in
+            Sign up
           </button>
         </div>
         <div className="flex justify-center items-center gap-4 text-gray-300">
@@ -190,10 +255,19 @@ const SignUp = ({ theme, toggleTheme }) => {
         </div>
         <div className="my-4">
           <button
-            className="w-full p-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 transition-all rounded-md border-2 dark:border-gray-700 flex justify-center items-center gap-2"
-            onClick={() => {}}
+            className={`${
+              isTermsAndConditionsChecked
+                ? "hover:bg-gray-100 dark:hover:bg-gray-600 transition-all  dark:border-gray-700 cursor-pointer"
+                : "bg-gray-200 cursor-not-allowed dark:bg-gray-700 dark:border-gray-700 dark:text-gray-500"
+            } w-full p-2 text-sm flex justify-center items-center gap-2 rounded-md border-2`}
+            onClick={handleGoogleSignin}
           >
-            <img src={GoogleLogo} alt="" width={15} className="" />
+            <img
+              src={GoogleLogo}
+              alt=""
+              width={15}
+              className={`${!isTermsAndConditionsChecked && "grayscale"}`}
+            />
             <span>Sign in with Google</span>
           </button>
           <p className="text-sm my-5 flex gap-1">
